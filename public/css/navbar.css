@@ -32,7 +32,21 @@ nav{
 }
 .navbar-menu{
     font-weight: 700;
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+}
+.navbar-connect-wallet-btn{
     cursor: pointer;
+}
+.navbar-search-icon{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.navbar-search-icon > img{
+    width: 30px;
+    height: 30px;
 }
 .navbar-logo > a > img{
     width: 30px;
