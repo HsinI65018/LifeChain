@@ -1,5 +1,5 @@
 const insureNowBtn = document.querySelector('.banner-info-btn');
-const insureNowController = () => {
+const scrollPageController = () => {
     window.scrollTo(900, 900);
 }
-insureNowBtn.addEventListener('click', insureNowController);
+insureNowBtn.addEventListener('click', scrollPageController);
