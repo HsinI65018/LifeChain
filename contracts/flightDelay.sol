@@ -1,7 +1,5 @@
 pragma solidity ^0.8.17;
 
-// import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
 contract FlightDelay {
 
     struct Insurance {
@@ -18,25 +16,33 @@ contract FlightDelay {
     mapping (address => Insurance) public insurances;
 
     function createInsurance(address _owner, string memory _airline, string memory _flight_number, string memory _departure_date) public {
-        addUniqueAirline(_airline);
+        _addUniqueAirline(_airline);
 
         // create user insurance data
-        insurances[_owner].airline = _airline;
-        insurances[_owner].flight_number = _flight_number;
-        insurances[_owner].departure_date = _departure_date;
-        insurances[_owner].delay_status = false;
-        insurances[_owner].payment_status = "un_paid";
+        insurances[_owner] = Insurance({
+            airline: _airline,
+            flight_number: _flight_number,
+            departure_date: _departure_date,
+            delay_status: false,
+            payment_status: "un_paid"
+        });
     }
 
 
     // get insurance data by user address
     function getInsurance(address _owner) public view returns(string memory, string memory, string memory, bool, string memory) {
-        return (insurances[_owner].airline, insurances[_owner].flight_number, insurances[_owner].departure_date, insurances[_owner].delay_status, insurances[_owner].payment_status);
+        return (
+            insurances[_owner].airline, 
+            insurances[_owner].flight_number, 
+            insurances[_owner].departure_date, 
+            insurances[_owner].delay_status, 
+            insurances[_owner].payment_status
+        );
     }
     
 
     // add unique airline in array
-    function addUniqueAirline(string memory _airline) internal {
+    function _addUniqueAirline(string memory _airline) internal {
         if (isAirline[_airline] == false) {
             // push the unique item to the array
             airlines.push(_airline);
