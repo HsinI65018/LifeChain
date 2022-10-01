@@ -1,0 +1,174 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    font-family: 'Noto Sans Telugu UI';
+    font-size: 18px;
+}
+main{
+    margin-top: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.banner-bg{
+    position: absolute;
+    left: 0px;
+    width: 650px;
+    height: calc(100vh - 54px);
+    background-color: #A1C084;
+    z-index: -1;
+}
+.banner-container{
+    width: 1200px;
+    margin: auto;
+    height: calc(100vh - 54px);
+    display: flex;
+}
+
+/* banner-info */
+.banner-info{
+    width: 600px;
+    height: calc(100vh - 54px - 200px);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+}    
+.banner-info > .banner-info-title{
+    width: 400px;
+    font-weight: 700;
+    color: #000000;
+    font-size: 40px;
+    margin-top: 50px;
+}
+.banner-info > .banner-info-subtitle{
+    width: 400px;
+}
+.banner-info > .banner-info-btn{
+    width: 200px;
+    height: 40px;
+    font-weight: 700;
+    background: #E5E5E5;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+.banner-info > .banner-info-btn:hover{
+    transform: scale(1.1);
+}
+
+/* banner-insurance */
+.banner-right-section{
+    width: calc(100vw - 600px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.banner-insurance{
+    width: 600px;
+    height: calc(100vh - 54px - 200px);
+    margin: auto;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}    
+.banner-insurance > div{
+    width: 500px;
+    margin-top: 60px;
+}
+.banner-insurance > img{
+    width: calc(100vw - 800px);
+    margin-bottom: 60px;
+}
+
+/* description */
+article{
+    margin-top: 70px;
+    margin-bottom: 70px;
+    display: flex;
+    justify-content: center;
+}
+.description-container{
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.description-container > .description-img{
+    width: 500px;
+    height: 300px;
+    margin-bottom: 30px;
+}
+.description-img > img{
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+}
+.description-context{
+    width: 500px;
+    margin-bottom: 30px;
+}
+.description-title{
+    width: 500px;
+    font-weight: 700;
+    color: #000000;
+    font-size: 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.description-form{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.description-form > input{
+    box-sizing: border-box;
+    width: 500px;
+    height: 60px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    border: 1px solid #888888;
+    padding: 0px 20px 0px 20px;
+}
+.description-form > button{
+    width: 500px;
+    height: 60px;
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 20px;
+    background-color: #A1C084;
+    cursor: pointer;
+}
+
+/* footer */
+footer{
+    height: 80px;
+    align-items: center;
+    background-color: #A1C084;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+footer > div{
+    color: #FFFFFF;
+}
+footer > .footer-github{
+    width: 35px;
+    height: 35px;
+    margin-left: 15px;
+}
+.footer-github > img{
+    width: 35px;
+    height: 35px;
+}
