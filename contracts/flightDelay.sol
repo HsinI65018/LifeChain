@@ -9,37 +9,51 @@ contract FlightDelay {
         bool delay_status;
         string payment_status;
     }
+    
+    Insurance[] public insurances;
 
     string [] public airlines;
     
     mapping (string => bool) public isAirline;
-    mapping (address => Insurance) public insurances;
+    mapping (uint => address) public insuranceToOwner;
+    mapping (address => uint) public ownerInsuranceCount;
 
     function createInsurance(address _owner, string memory _airline, string memory _flight_number, string memory _departure_date) public {
         _addUniqueAirline(_airline);
 
         // create user insurance data
-        insurances[_owner] = Insurance({
-            airline: _airline,
-            flight_number: _flight_number,
-            departure_date: _departure_date,
-            delay_status: false,
-            payment_status: "un_paid"
-        });
+        insurances.push(Insurance(_airline, _flight_number, _departure_date, false, "un_paid"));
+        uint _id = insurances.length - 1;
+        insuranceToOwner[_id] = _owner;
+        ownerInsuranceCount[_owner] ++;
     }
 
 
-    // get insurance data by user address
-    function getInsurance(address _owner) public view returns(string memory, string memory, string memory, bool, string memory) {
-        return (
-            insurances[_owner].airline, 
-            insurances[_owner].flight_number, 
-            insurances[_owner].departure_date, 
-            insurances[_owner].delay_status, 
-            insurances[_owner].payment_status
-        );
+    // get insurance ids by user address
+    function getInsuranceIds(address _owner) public view returns (uint[] memory) {
+        uint[] memory re = new uint[](ownerInsuranceCount[_owner]);
+        uint counter = 0;
+        for(uint i = 0; i < insurances.length; i++) {
+            if(insuranceToOwner[i] == _owner) {
+                re[counter] = i;
+                counter ++;
+            }
+        }
+        return re;
     }
-    
+
+
+    // get insurance data by id
+    function getInsurance(uint _id) public view returns(string[] memory) {
+        string[] memory re = new string[](5);
+        re[0] = insurances[_id].airline;
+        re[1] = insurances[_id].flight_number;
+        re[2] = insurances[_id].departure_date;
+        (insurances[_id].delay_status == false) ? re[3] = "F" : re[3] = "T";
+        re[4] = insurances[_id].payment_status;
+        return re;
+    }
+
 
     // add unique airline in array
     function _addUniqueAirline(string memory _airline) internal {
