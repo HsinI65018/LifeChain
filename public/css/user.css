@@ -33,6 +33,9 @@ main{
     margin: auto;
     margin-top: 30px;
 }
+.order-list-title {
+    font-weight: 700;
+}
 .order-list-title, .order-list-item{
     display: flex;
     align-items: center;
@@ -41,7 +44,7 @@ main{
     line-height: 50px;
 }
 .order-list-title > div, .order-list-item > div{
-    width: 132px;
+    width: 140px;
     text-align: center;
 }
 .hide{
