@@ -2,6 +2,8 @@
 const ethereumButton = document.querySelector('.navbar-connect-wallet-btn');
 const connectBtn = document.querySelector('.description-btn');
 const main = document.querySelector('main');
+const listTitle = document.querySelector('.order-list-title');
+const listItemContainer = document.querySelector('.order-list-item-container');
 const connectToWallet = async() => {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     if(accounts[0].length !== 0){
@@ -10,7 +12,9 @@ const connectToWallet = async() => {
         
         // if in /user page, show user insurance details
         if(window.location.pathname == '/user') {
-            main.classList.remove('hide');
+            listTitle.classList.remove('hide');
+            main.style.borderBottom = '1px solid #D8D3D3';
+            listItemContainer.innerHTML = '';
             const ids = await contract.methods.getInsuranceIds(userAccount).call();
             for(let i = 0; i < ids.length; i ++) {
                 const itemContainer = document.createElement('div');
@@ -21,7 +25,7 @@ const connectToWallet = async() => {
                     item.textContent = insuranceData[j]
                     itemContainer.appendChild(item);
                 }
-                main.appendChild(itemContainer);
+                listItemContainer.appendChild(itemContainer);
             }
         }
     }
