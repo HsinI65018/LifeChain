@@ -2,8 +2,33 @@
 <html lang="en">
 <head>
     <%- include('../partials/head.ejs'); %>
+    <link rel="stylesheet" href="/css/user.css">
+    <script src="/js/user.js" type="module"></script>
 </head>
 <body>
     <%- include('../partials/navbar.ejs'); %>
+    <header>
+        <img src="https://d1dd0qmbf0xvcr.cloudfront.net/LifeChain/people-search.jpg">
+        <div class="description-container">
+            <div class="description-context">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam porta neque eget at et, elementum. Egestas egesollicitudin amet malesuada nec tempor quis. Et mattis</div>
+            <button class="description-btn">Connect to your wallet</button>
+        </div>
+    </header>
+    <main class="order-list-container hide">
+        <div class="order-list-title">
+            <div>Airline</div>
+            <div>Flight Number</div>
+            <div>Departure Date</div>
+            <div>Delay Status</div>
+            <div>Payment Status</div>
+        </div>
+        <div class="order-list-item">
+            <div class="airline">CI</div>
+            <div class="flight-number">123</div>
+            <div class="date">2022/10/07</div>
+            <div class="delay">On Time</div>
+            <div class="payment">Unpaid</div>
+        </div>
+    </main>
 </body>
 </html>

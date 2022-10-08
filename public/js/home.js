@@ -11,12 +11,12 @@ let contract;
 let userAccount;
 const createInstance = async () => {
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const contractAddress = "0x6f8De0f1c116478d95eb0d0bd22A51E6622B8560";
+    const contractAddress = "0x78E49a7Eb5c63375f0E909d3e0F9c61c7d460651";
     const response = await fetch('/api/read/file');
     const data = await response.json();
     const ABI = data.data
     contract = new web3.eth.Contract(ABI, contractAddress);
-
+    // console.log(contract)
     const accounts = await web3.eth.getAccounts();
     userAccount = await accounts[0]
 
@@ -24,12 +24,8 @@ const createInstance = async () => {
     //// TEST
     const airline = await contract.methods.getAirlines().call();
     console.log(airline)
-    const ids = await contract.methods.getInsuranceIds(userAccount).call();
-    console.log(ids)
-    for(let i = 0; i < ids.length; i ++) {
-        let insurance = await contract.methods.getInsurance(ids[i]).call();
-        console.log(insurance)
-    }
+    const trans = await web3.eth.getTransaction("");
+    console.log(trans)
     ////
     
 }
@@ -40,14 +36,21 @@ window.addEventListener('load', createInstance);
 const form = document.querySelector('form');
 const orderInsuranceController = async (e) => {
     e.preventDefault();
-    const airline = document.querySelector('.airline').value;
-    const flightNumber = document.querySelector('.flight-number').value;
-    const departureDate = document.querySelector('.daparture-date').value;
+    const airline = document.querySelector('.airline');
+    const flightNumber = document.querySelector('.flight-number');
+    const departureDate = document.querySelector('.daparture-date');
 
-    contract.methods.createInsurance(userAccount, airline, flightNumber, departureDate).send({
+    const transcation = await contract.methods.createInsurance(userAccount, airline.value, flightNumber.value, departureDate.value).send({
         from: userAccount,
         to: "",
         value: 0,
     });
+    
+    if(transcation.status) {
+        airline.value = '';
+        flightNumber.value = '';
+        departureDate.value = '';
+    }
+    
 }
 form.addEventListener('submit', orderInsuranceController);
