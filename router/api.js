@@ -8,4 +8,22 @@ router.get('/read/file', async (req, res) => {
     res.status(200).json({"data": data.abi})
 })
 
+router.post('/flight/token', async (req, res) => {
+    const response = await fetch("https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            grant_type: process.env.GRANT_TYPE,
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET
+        })
+    });
+
+    const data = await response.json();
+    const token = JSON.stringify(data);
+    res.status(200).json({ "data": token })
+})
+
 module.exports = router;

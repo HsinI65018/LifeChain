@@ -3,7 +3,7 @@ let contract;
 let userAccount;
 const createInstance = async () => {
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const contractAddress = "0x78E49a7Eb5c63375f0E909d3e0F9c61c7d460651";
+    const contractAddress = "0x1271175735C572a55876D94E008e968810dbAeeD";
     const response = await fetch('/api/read/file');
     const data = await response.json();
     const ABI = data.data
@@ -45,4 +45,3 @@ const connectToWallet = async () => {
     }
 }
 connectBtn.addEventListener('click', connectToWallet);
-
