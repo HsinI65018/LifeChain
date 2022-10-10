@@ -5,6 +5,7 @@ const api = require("./router/api");
 const app = express();
 
 require('dotenv').config();
+require("./controller/checkDelay");
 
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));

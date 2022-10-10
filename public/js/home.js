@@ -18,8 +18,8 @@ const initContractInstance = async () => {
     userAccount = (await createInstance()).userAccount;
 
     //// TEST
-    const airline = await contract.methods.getAirlines().call();
-    console.log(airline)
+    // const airline = await contract.methods.getAirlines().call();
+    // console.log(airline)
     ////
 }
 window.addEventListener('load', initContractInstance);
