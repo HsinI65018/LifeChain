@@ -1,7 +1,20 @@
+import createInstance from "./instance.js";
+
+// create contract instance
+let contract;
+let userAccount;
+const initContractInstance = async () => {
+    contract = (await createInstance()).contract;
+    userAccount = (await createInstance()).userAccount;
+}
+window.addEventListener('load', initContractInstance);
+
+
 // check if the user is connected to the MetaMask wallet, if connected then show the wallet address
 const ethereumButton = document.querySelector('.navbar-connect-wallet-btn');
-const connectBtn = document.querySelector('.description-btn');
 const main = document.querySelector('main');
+const listTitle = document.querySelector('.order-list-title');
+const listItemContainer = document.querySelector('.order-list-item-container');
 const connectToWallet = async() => {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     if(accounts[0].length !== 0){
@@ -10,7 +23,9 @@ const connectToWallet = async() => {
         
         // if in /user page, show user insurance details
         if(window.location.pathname == '/user') {
-            main.classList.remove('hide');
+            listTitle.classList.remove('hide');
+            main.style.borderBottom = '1px solid #D8D3D3';
+            listItemContainer.innerHTML = '';
             const ids = await contract.methods.getInsuranceIds(userAccount).call();
             for(let i = 0; i < ids.length; i ++) {
                 const itemContainer = document.createElement('div');
@@ -18,10 +33,10 @@ const connectToWallet = async() => {
                 let insuranceData = await contract.methods.getInsurance(ids[i]).call();
                 for(let j = 0; j < insuranceData.length; j ++) {
                     const item = document.createElement('div');
-                    item.textContent = insuranceData[j]
+                    item.textContent = insuranceData[j];
                     itemContainer.appendChild(item);
                 }
-                main.appendChild(itemContainer);
+                listItemContainer.appendChild(itemContainer);
             }
         }
     }
@@ -37,19 +52,10 @@ const searchController = async () => {
 searchBtn.addEventListener('click', searchController);
 
 
-// create contract instance
-let contract;
-let userAccount;
-const createInstance = async () => {
-    const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const contractAddress = "0x78E49a7Eb5c63375f0E909d3e0F9c61c7d460651";
-    const response = await fetch('/api/read/file');
-    const data = await response.json();
-    const ABI = data.data
-    contract = new web3.eth.Contract(ABI, contractAddress);
-
-    const accounts = await web3.eth.getAccounts();
-    userAccount = await accounts[0];
+// close error message
+const errorContainer = document.querySelector('.error-container');
+const errorBtn = document.querySelector('.error-btn');
+const closeErrorMessage = () => {
+    errorContainer.style.display = 'none';
 }
-window.addEventListener('load', createInstance);
-
+errorBtn.addEventListener('click', closeErrorMessage);

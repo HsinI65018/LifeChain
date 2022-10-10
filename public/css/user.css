@@ -29,21 +29,47 @@ header > img{
 /* orde-list-container */
 main{
     width: 1200px;
+    min-height: calc(100vh - 415px - 80px - 54px);;
     margin: auto;
     margin-top: 30px;
+}
+.order-list-title {
+    font-weight: 700;
 }
 .order-list-title, .order-list-item{
     display: flex;
     align-items: center;
     justify-content: space-around;
     border-top: 1px solid #D8D3D3;
-    /* border-bottom: 1px solid #D8D3D3; */
     line-height: 50px;
 }
 .order-list-title > div, .order-list-item > div{
-    width: 132px;
+    width: 140px;
     text-align: center;
 }
 .hide{
     display: none;
+}
+
+/* footer */
+footer{
+    height: 80px;
+    align-items: center;
+    background-color: #A1C084;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+footer > div{
+    color: #FFFFFF;
+}
+footer > .footer-github{
+    width: 35px;
+    height: 35px;
+    margin-left: 15px;
+}
+.footer-github > img{
+    width: 35px;
+    height: 35px;
 }
