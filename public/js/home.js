@@ -1,3 +1,5 @@
+import createInstance from "./instance.js";
+
 // click the inaure now btn, scroll down to the insure form
 const insureNowBtn = document.querySelector('.banner-info-btn');
 const scrollPageController = () => {
@@ -7,27 +9,20 @@ insureNowBtn.addEventListener('click', scrollPageController);
 
 
 // create contract instance
+let web3;
 let contract;
 let userAccount;
-const createInstance = async () => {
-    const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const contractAddress = "0x1271175735C572a55876D94E008e968810dbAeeD";
-    const response = await fetch('/api/read/file');
-    const data = await response.json();
-    const ABI = data.data
-    contract = new web3.eth.Contract(ABI, contractAddress);
-    // console.log(contract)
-    const accounts = await web3.eth.getAccounts();
-    userAccount = await accounts[0]
-
+const initContractInstance = async () => {
+    web3 = (await createInstance()).web3;
+    contract = (await createInstance()).contract;
+    userAccount = (await createInstance()).userAccount;
 
     //// TEST
     const airline = await contract.methods.getAirlines().call();
     console.log(airline)
     ////
-    
 }
-window.addEventListener('load', createInstance);
+window.addEventListener('load', initContractInstance);
 
 
 // saveing insurance data to block-chain

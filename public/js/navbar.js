@@ -1,6 +1,17 @@
+import createInstance from "./instance.js";
+
+// create contract instance
+let contract;
+let userAccount;
+const initContractInstance = async () => {
+    contract = (await createInstance()).contract;
+    userAccount = (await createInstance()).userAccount;
+}
+window.addEventListener('load', initContractInstance);
+
+
 // check if the user is connected to the MetaMask wallet, if connected then show the wallet address
 const ethereumButton = document.querySelector('.navbar-connect-wallet-btn');
-const connectBtn = document.querySelector('.description-btn');
 const main = document.querySelector('main');
 const listTitle = document.querySelector('.order-list-title');
 const listItemContainer = document.querySelector('.order-list-item-container');
@@ -22,7 +33,7 @@ const connectToWallet = async() => {
                 let insuranceData = await contract.methods.getInsurance(ids[i]).call();
                 for(let j = 0; j < insuranceData.length; j ++) {
                     const item = document.createElement('div');
-                    item.textContent = insuranceData[j]
+                    item.textContent = insuranceData[j];
                     itemContainer.appendChild(item);
                 }
                 listItemContainer.appendChild(itemContainer);
@@ -39,23 +50,6 @@ const searchController = async () => {
     window.location = '/user'
 }
 searchBtn.addEventListener('click', searchController);
-
-
-// create contract instance
-let contract;
-let userAccount;
-const createInstance = async () => {
-    const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const contractAddress = "0x1271175735C572a55876D94E008e968810dbAeeD";
-    const response = await fetch('/api/read/file');
-    const data = await response.json();
-    const ABI = data.data
-    contract = new web3.eth.Contract(ABI, contractAddress);
-
-    const accounts = await web3.eth.getAccounts();
-    userAccount = await accounts[0];
-}
-window.addEventListener('load', createInstance);
 
 
 // close error message

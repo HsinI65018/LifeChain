@@ -1,18 +1,13 @@
+import createInstance from "./instance.js";
+
 // create contract instance
 let contract;
 let userAccount;
-const createInstance = async () => {
-    const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const contractAddress = "0x1271175735C572a55876D94E008e968810dbAeeD";
-    const response = await fetch('/api/read/file');
-    const data = await response.json();
-    const ABI = data.data
-    contract = new web3.eth.Contract(ABI, contractAddress);
-
-    const accounts = await web3.eth.getAccounts();
-    userAccount = await accounts[0];
+const initContractInstance = async () => {
+    contract = (await createInstance()).contract;
+    userAccount = (await createInstance()).userAccount;
 }
-window.addEventListener('load', createInstance);
+window.addEventListener('load', initContractInstance);
 
 
 // show user insurance details
