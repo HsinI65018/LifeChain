@@ -47,4 +47,17 @@ contract(flightDelay, async (accounts) => {
             expect(insuranceData[0]).to.equal(airlineData[i]);
         }
     })
+
+    it("it should return owner array", async () => {
+        const firstUser = accounts[0];
+        const secondUser = accounts[1];
+
+        await flightInstance.createInsurance(firstUser, "CI", "113", "20201001");
+        await flightInstance.createInsurance(secondUser, "AI", "456", "20201002");
+
+        const owners = await flightInstance.getOwners();
+
+        expect(owners[0]).to.equal(firstUser);
+        expect(owners[1]).to.equal(secondUser);
+    })
 })

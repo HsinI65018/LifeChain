@@ -22,8 +22,7 @@ router.post('/flight/token', async (req, res) => {
     });
 
     const data = await response.json();
-    const token = JSON.stringify(data);
-    res.status(200).json({ "data": token })
+    res.status(200).json(data)
 })
 
 module.exports = router;

@@ -13,13 +13,16 @@ contract FlightDelay {
     Insurance[] public insurances;
 
     string [] public airlines;
+    address [] public owners;
     
     mapping (string => bool) public isAirline;
+    mapping (address => bool) public isOwner;
     mapping (uint => address) public insuranceToOwner;
     mapping (address => uint) public ownerInsuranceCount;
 
     function createInsurance(address _owner, string memory _airline, string memory _flight_number, string memory _departure_date) public {
         _addUniqueAirline(_airline);
+        _addUniqueOwner(_owner);
 
         // create user insurance data
         insurances.push(Insurance(_airline, _flight_number, _departure_date, false, "un_paid"));
@@ -64,10 +67,22 @@ contract FlightDelay {
             isAirline[_airline] = true;
         }
     }
+    function _addUniqueOwner(address _owner) internal {
+        if(isOwner[_owner] == false) {
+            owners.push(_owner);
+            isOwner[_owner] = true;
+        }
+    }
 
 
     // return airlines array
     function getAirlines() public view returns (string[] memory) {
         return airlines;
+    }
+
+
+    // return owner array
+    function getOwners() public view returns (address[] memory) {
+        return owners;
     }
 }
