@@ -6,13 +6,12 @@ contract FlightDelay {
         string airline;
         string flight_number;
         string departure_date;
-        bool delay_status;
+        string delay_status;
         string payment_status;
     }
     
     Insurance[] public insurances;
 
-    string [] public airlines;
     address [] public owners;
     
     mapping (string => bool) public isAirline;
@@ -21,16 +20,23 @@ contract FlightDelay {
     mapping (address => uint) public ownerInsuranceCount;
 
     function createInsurance(address _owner, string memory _airline, string memory _flight_number, string memory _departure_date) public {
-        _addUniqueAirline(_airline);
         _addUniqueOwner(_owner);
-
         // create user insurance data
-        insurances.push(Insurance(_airline, _flight_number, _departure_date, false, "un_paid"));
+        insurances.push(Insurance(_airline, _flight_number, _departure_date, "-", "Un Paid"));
         uint _id = insurances.length - 1;
         insuranceToOwner[_id] = _owner;
         ownerInsuranceCount[_owner] ++;
     }
 
+    // add unique owner in array
+    function _addUniqueOwner(address _owner) internal {
+        if(isOwner[_owner] == false) {
+            // push the unique item to the array
+            owners.push(_owner);
+            // don't forget to set the mapping value as well
+            isOwner[_owner] = true;
+        }
+    }
 
     // get insurance ids by user address
     function getInsuranceIds(address _owner) public view returns (uint[] memory) {
@@ -45,44 +51,24 @@ contract FlightDelay {
         return re;
     }
 
-
     // get insurance data by id
     function getInsurance(uint _id) public view returns(string[] memory) {
         string[] memory re = new string[](5);
         re[0] = insurances[_id].airline;
         re[1] = insurances[_id].flight_number;
         re[2] = insurances[_id].departure_date;
-        (insurances[_id].delay_status == false) ? re[3] = "F" : re[3] = "T";
+        re[3] = insurances[_id].delay_status;
         re[4] = insurances[_id].payment_status;
         return re;
     }
 
-
-    // add unique airline in array
-    function _addUniqueAirline(string memory _airline) internal {
-        if (isAirline[_airline] == false) {
-            // push the unique item to the array
-            airlines.push(_airline);
-            // don't forget to set the mapping value as well
-            isAirline[_airline] = true;
-        }
-    }
-    function _addUniqueOwner(address _owner) internal {
-        if(isOwner[_owner] == false) {
-            owners.push(_owner);
-            isOwner[_owner] = true;
-        }
-    }
-
-
-    // return airlines array
-    function getAirlines() public view returns (string[] memory) {
-        return airlines;
-    }
-
-
     // return owner array
     function getOwners() public view returns (address[] memory) {
         return owners;
+    }
+
+    function updateInsurance(uint _id, string memory _status, string memory _payment) public {
+        insurances[_id].delay_status = _status;
+        insurances[_id].payment_status = _payment;
     }
 }

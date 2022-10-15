@@ -52,10 +52,21 @@ const orderInsuranceController = async (e) => {
             airline.value = '';
             flightNumber.value = '';
             departureDate.value = '';
-        }   
+        }
     }else{
-        errorContainer.style.display = 'flex';
-        errorContainer.classList.add('show-animation');
+        // errorContainer.style.display = 'flex';
+        // errorContainer.classList.add('show-animation');
+        const transcation = await contract.methods.createInsurance(userAccount, airline.value, flightNumber.value, departureDate.value).send({
+            from: userAccount,
+            to: "0x96Ff304e973B913eB3112851Df695D01Ed4Cc0Bb",
+            value: 0,
+        });
+        
+        if(transcation.status) {
+            airline.value = '';
+            flightNumber.value = '';
+            departureDate.value = '';
+        }
     }
 }
 form.addEventListener('submit', orderInsuranceController);
@@ -64,8 +75,17 @@ form.addEventListener('submit', orderInsuranceController);
 // check if the flight is exist
 async function checkFlightNumber(departureDate, airline, number) {   
     const flightNumber = "'" + airline + number + "'";
+    const tokenResponse = await fetch('/api/flight/token', {
+        method: "POST"
+    })
+    const token = await tokenResponse.json();
     const url = `https://tdx.transportdata.tw/api/basic/v2/Air/GeneralSchedule/International?$format=JSON&$filter=FlightNumber eq ${flightNumber}`
-    const response = await fetch(url);
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            "authorization": "Bearer " + token.access_token
+        }
+    });
     const flightData = await response.json();
     console.log(flightData)
 

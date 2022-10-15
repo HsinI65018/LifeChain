@@ -7,20 +7,6 @@ contract(flightDelay, async (accounts) => {
     beforeEach(async () => {
         flightInstance = await flightDelay.new();
     });
-    
-    it("it should add unique airline", async () => {
-        const firstUser = accounts[0];
-        const airlineData = ["CI", "AI"];
-
-        await flightInstance.createInsurance(firstUser, "CI", "113", "20201001");
-        await flightInstance.createInsurance(firstUser, "AI", "456", "20201002");
-        await flightInstance.createInsurance(firstUser, "AI", "789", "20201002");
-
-        const airlines = await flightInstance.getAirlines();
-
-        expect(airlines[0]).to.equal(airlineData[0]);
-        expect(airlines).to.have.lengthOf(2);
-    })
 
     it("it shoule create a new insurance data", async () => {
         const firstUser = accounts[0];
@@ -59,5 +45,17 @@ contract(flightDelay, async (accounts) => {
 
         expect(owners[0]).to.equal(firstUser);
         expect(owners[1]).to.equal(secondUser);
+    })
+
+    it("it should update the insurance data", async () => {
+        await flightInstance.createInsurance(accounts[0], "CI", "113", "20201001");
+        const [status, payment] = ["daley", "2000"];
+
+        await flightInstance.updateInsurance(0, status, payment);
+
+        const insuranceData = await flightInstance.getInsurance(0);
+
+        expect(insuranceData[3]).to.equal(status);
+        expect(insuranceData[4]).to.equal(payment);
     })
 })
