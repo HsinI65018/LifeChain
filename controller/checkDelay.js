@@ -16,20 +16,6 @@ const createInstance = async () => {
     })
     const token = await tokenResponse.json();
 
-    //// Testing!!!
-    // const url = "https://tdx.transportdata.tw/api/basic/v2/Air/FIDS/Flight?$format=JSON&$filter=AirlineID eq 'CI' and FlightNumber eq '617'";
-    // const response = await fetch(url, {
-    //     method: "GET",
-    //     headers: {
-    //         "authorization": "Bearer " + token.access_token
-    //     }
-    // })
-    // const delayData = await response.json();
-    // console.log(delayData)
-    // const delayTime = await calculateDelayTime(delayData[0], 'ScheduleArrivalTime', 'ActualArrivalTime');
-    // console.log(delayTime)
-
-    
     const owners = await contract.methods.getOwners().call();
     const ownerIds = [];
     for(let i = 0; i < owners.length; i ++) {

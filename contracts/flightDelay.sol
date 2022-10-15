@@ -67,6 +67,7 @@ contract FlightDelay {
         return owners;
     }
 
+    // update insurance data if the flight is dalay or on time
     function updateInsurance(uint _id, string memory _status, string memory _payment) public {
         insurances[_id].delay_status = _status;
         insurances[_id].payment_status = _payment;

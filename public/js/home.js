@@ -54,13 +54,8 @@ const orderInsuranceController = async (e) => {
             departureDate.value = '';
         }
     }else{
-        // errorContainer.style.display = 'flex';
-        // errorContainer.classList.add('show-animation');
-        const transcation = await contract.methods.createInsurance(userAccount, airline.value, flightNumber.value, departureDate.value).send({
-            from: userAccount,
-            to: "0x96Ff304e973B913eB3112851Df695D01Ed4Cc0Bb",
-            value: 0,
-        });
+        errorContainer.style.display = 'flex';
+        errorContainer.classList.add('show-animation');
         
         if(transcation.status) {
             airline.value = '';
