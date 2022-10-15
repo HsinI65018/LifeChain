@@ -52,10 +52,16 @@ const orderInsuranceController = async (e) => {
             airline.value = '';
             flightNumber.value = '';
             departureDate.value = '';
-        }   
+        }
     }else{
         errorContainer.style.display = 'flex';
         errorContainer.classList.add('show-animation');
+        
+        if(transcation.status) {
+            airline.value = '';
+            flightNumber.value = '';
+            departureDate.value = '';
+        }
     }
 }
 form.addEventListener('submit', orderInsuranceController);
@@ -64,10 +70,19 @@ form.addEventListener('submit', orderInsuranceController);
 // check if the flight is exist
 async function checkFlightNumber(departureDate, airline, number) {   
     const flightNumber = "'" + airline + number + "'";
+    const tokenResponse = await fetch('/api/flight/token', {
+        method: "POST"
+    })
+    const token = await tokenResponse.json();
     const url = `https://tdx.transportdata.tw/api/basic/v2/Air/GeneralSchedule/International?$format=JSON&$filter=FlightNumber eq ${flightNumber}`
-    const response = await fetch(url);
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            "authorization": "Bearer " + token.access_token
+        }
+    });
     const flightData = await response.json();
-    // console.log(flightData)
+    console.log(flightData)
 
     const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     for(let i = flightData.length - 1; i >= 0; i --) {
