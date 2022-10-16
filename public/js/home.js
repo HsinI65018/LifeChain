@@ -17,10 +17,15 @@ const initContractInstance = async () => {
     contract = (await createInstance()).contract;
     userAccount = (await createInstance()).userAccount;
 
-    //// TEST
-    // const airline = await contract.methods.getAirlines().call();
-    // console.log(airline)
-    ////
+    //// TEST!!!
+    // await contract.methods.toContract().send({
+    //     from: userAccount,
+    //     to: "0x24F8e5A258717F40EFf54F2C1DACA94f83392Adc",
+    //     value: web3.utils.toHex(web3.utils.toWei(('1').toString(), 'ether'))
+    // })
+
+    const balance = await contract.methods.getBalance().call();
+    console.log(balance)
 }
 window.addEventListener('load', initContractInstance);
 
@@ -44,8 +49,8 @@ const orderInsuranceController = async (e) => {
     if(checkFlightResult){
         const transcation = await contract.methods.createInsurance(userAccount, airline.value, flightNumber.value, departureDate.value).send({
             from: userAccount,
-            to: "",
-            value: 0,
+            to: "0x24F8e5A258717F40EFf54F2C1DACA94f83392Adc",
+            value: web3.utils.toHex(web3.utils.toWei(('0.05').toString(), 'ether'))
         });
         
         if(transcation.status) {
