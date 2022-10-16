@@ -60,15 +60,6 @@ contract(flightDelay, async (accounts) => {
     })
 
     it("it should transfer money", async () => {
-        const firstUser = accounts[0];
-        const secondUser = accounts[1];
 
-        // const balance1 = await flightInstance.getBalance();
-        // console.log(balance1)
-
-        await flightInstance.transfer(secondUser, 1000000000000000);
-        
-        // const balance2 = await flightInstance.getBalance();
-        // console.log(balance2)
     })
 })
