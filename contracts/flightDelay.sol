@@ -1,6 +1,7 @@
 pragma solidity ^0.8.17;
+import "./receive.sol";
 
-contract FlightDelay {
+contract FlightDelay is Receive{
 
     struct Insurance {
         string airline;
@@ -14,12 +15,11 @@ contract FlightDelay {
 
     address [] public owners;
     
-    mapping (string => bool) public isAirline;
     mapping (address => bool) public isOwner;
     mapping (uint => address) public insuranceToOwner;
     mapping (address => uint) public ownerInsuranceCount;
 
-    function createInsurance(address _owner, string memory _airline, string memory _flight_number, string memory _departure_date) public {
+    function createInsurance(address _owner, string memory _airline, string memory _flight_number, string memory _departure_date) public payable {
         _addUniqueOwner(_owner);
         // create user insurance data
         insurances.push(Insurance(_airline, _flight_number, _departure_date, "-", "Un Paid"));
@@ -68,8 +68,17 @@ contract FlightDelay {
     }
 
     // update insurance data if the flight is dalay or on time
-    function updateInsurance(uint _id, string memory _status, string memory _payment) public {
+    function updateInsurance(uint _id, string memory _status, string memory _payment, uint _amount) public {
+        address payable _to = payable(insuranceToOwner[_id]);
+        _withdrawMoneyTo(_to, _amount);
         insurances[_id].delay_status = _status;
         insurances[_id].payment_status = _payment;
+    }
+
+    // transfer ether from contract to account
+    function _withdrawMoneyTo(address payable _to, uint _amount) internal {
+        // _to.transfer(getBalance());
+        (bool sent, bytes memory data) = _to.call{value: _amount}("");
+        require(sent, "Failed to send Ether");
     }
 }

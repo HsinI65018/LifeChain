@@ -17,10 +17,8 @@ const initContractInstance = async () => {
     contract = (await createInstance()).contract;
     userAccount = (await createInstance()).userAccount;
 
-    //// TEST
-    // const airline = await contract.methods.getAirlines().call();
-    // console.log(airline)
-    ////
+    const balance = await contract.methods.getBalance().call();
+    console.log(balance)
 }
 window.addEventListener('load', initContractInstance);
 
@@ -40,12 +38,12 @@ const orderInsuranceController = async (e) => {
     const flightNumber = document.querySelector('.flight-number');
     const departureDate = document.querySelector('.daparture-date');
 
-    const checkFlightResult = await checkFlightNumber(departureDate.value, airline.value, flightNumber.value);
+    const checkFlightResult = await checkFlightNumber(departureDate.value, airline.value.toUpperCase(), flightNumber.value);
     if(checkFlightResult){
-        const transcation = await contract.methods.createInsurance(userAccount, airline.value, flightNumber.value, departureDate.value).send({
+        const transcation = await contract.methods.createInsurance(userAccount, airline.value.toUpperCase(), flightNumber.value, departureDate.value).send({
             from: userAccount,
-            to: "",
-            value: 0,
+            to: "0xE7c50F6b35e353CaaaD67b43B5Cb280cc0405EC2",
+            value: web3.utils.toHex(web3.utils.toWei(('0.05').toString(), 'ether'))
         });
         
         if(transcation.status) {
@@ -56,12 +54,6 @@ const orderInsuranceController = async (e) => {
     }else{
         errorContainer.style.display = 'flex';
         errorContainer.classList.add('show-animation');
-        
-        if(transcation.status) {
-            airline.value = '';
-            flightNumber.value = '';
-            departureDate.value = '';
-        }
     }
 }
 form.addEventListener('submit', orderInsuranceController);
@@ -82,7 +74,7 @@ async function checkFlightNumber(departureDate, airline, number) {
         }
     });
     const flightData = await response.json();
-    console.log(flightData)
+    // console.log(flightData)
 
     const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     for(let i = flightData.length - 1; i >= 0; i --) {
@@ -92,7 +84,7 @@ async function checkFlightNumber(departureDate, airline, number) {
             console.log(i, flightData[i])
             const date = new Date(departureDate)
             const day = date.getDay();
-            console.log(weekdays[day])
+            // console.log(weekdays[day])
             const flightStatus = flightData[i][`${weekdays[day]}`];
             return flightStatus
         }

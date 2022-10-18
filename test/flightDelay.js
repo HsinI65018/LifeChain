@@ -49,9 +49,9 @@ contract(flightDelay, async (accounts) => {
 
     it("it should update the insurance data", async () => {
         await flightInstance.createInsurance(accounts[0], "CI", "113", "20201001");
-        const [status, payment] = ["daley", "2000"];
+        const [status, payment, amount] = ["daley", "1", 1];
 
-        await flightInstance.updateInsurance(0, status, payment);
+        await flightInstance.updateInsurance(0, status, payment, 1);
 
         const insuranceData = await flightInstance.getInsurance(0);
 

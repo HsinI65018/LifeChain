@@ -1,15 +1,16 @@
 const Web3 = require("web3");
 const ABI = require("../build/contracts/FlightDelay.json").abi;
+const contractAddress = "0xE7c50F6b35e353CaaaD67b43B5Cb280cc0405EC2";
 
+let web3;
 let contract;
-let userAccount;
+let contractOwner;
 const createInstance = async () => {
-    const web3 = new Web3("http://127.0.0.1:7545");
-    const contractAddress = "0xFBb50814535D242c817769CEb0e880279386F32B";
+    web3 = new Web3("http://127.0.0.1:7545");
     contract = new web3.eth.Contract(ABI, contractAddress);
 
     const accounts = await web3.eth.getAccounts();
-    userAccount = await accounts[0];
+    contractOwner = await accounts[0];
 
     const tokenResponse = await fetch('http://127.0.0.1:3000/api/flight/token', {
         method: "POST"
@@ -28,7 +29,7 @@ const createInstance = async () => {
     for(let i = 0; i < ownerIds.length; i ++) {
         const insuranceData = await contract.methods.getInsurance(ownerIds[i]).call();
 
-        if(insuranceData[3] === '-') {
+        if(insuranceData[3] == '-') {
             const airline = "'" + insuranceData[0] + "'";
             const flightNumber = "'" + insuranceData[1] + "'";
 
@@ -77,36 +78,35 @@ const calculateDelayTime = async (delayData, ScheduleTime, ActualTime) => {
 
 // update insurance data depends on different delay time
 const checkDelayTime = async (delayTime, id) => {
-    if(delayTime >= 60 && delayTime <= 120) {
-        await updateInsuranceData(id, "Delay", "0.050 eth");
+    // if(delayTime >= 60 && delayTime <= 120)
+    if(delayTime >= 30 && delayTime <= 60) {
+        await updateInsuranceData(id, "Delay", "0.050 eth", 0.050);
     } else if(delayTime >= 120 && delayTime <= 180) {
-        await updateInsuranceData(id, "Delay", "0.056 eth");
+        await updateInsuranceData(id,"Delay", "0.056 eth", 0.056);
     } else if(delayTime >= 180 && delayTime <= 240) {
-        await updateInsuranceData(id, "Delay", "0.060 eth");
+        await updateInsuranceData(id,"Delay", "0.060 eth", 0.060);
     } else if(delayTime >= 240) {
-        await updateInsuranceData(id, "Delay", "0.064 eth");
+        await updateInsuranceData(id,"Delay", "0.064 eth", 0.064);
     } else {
-        await updateInsuranceData(id, "On Time", "Un Paid");
+        await updateInsuranceData(id,"On Time", "Un Paid", 0);
     }
 }
 
 // call contract to update the insurance data
-const updateInsuranceData = async (id, status, payment) => {
-    await contract.methods.updateInsurance(id, status, payment).send({
-        from: userAccount,
-        to: "",
+const updateInsuranceData = async (id, status, payment, amount) => {
+    const ether = web3.utils.toHex(web3.utils.toWei((amount).toString(), 'ether'));
+    await contract.methods.updateInsurance(id, status, payment, ether).send({
+        from: contractOwner,
+        to: contractAddress,
         value: 0,
     });
 }
 
-createInstance();
 
-
-//// IDEA
-//// 1. call contract to get all owner address (create a contract function to get all address)
-//// 2. loop through address and get their insurance order (use getInsuranceIds and getInsurance)
-//// 3. check if the insurance order flight is delay or not (match with TDX API)
-//// 4. use setInterval combine above logic
+// start checking
+setInterval(() => {
+    createInstance()
+}, 1000);
 
 
 module.exports = createInstance;

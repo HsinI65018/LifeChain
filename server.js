@@ -1,11 +1,12 @@
-const express = require("express");
-const render = require("./router/render");
-const api = require("./router/api");
+const express = require('express');
+const render = require('./router/render');
+const api = require('./router/api');
 
 const app = express();
 
 require('dotenv').config();
-require("./controller/checkDelay");
+require('./controller/checkDelay');
+require('./controller/initContract');
 
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
