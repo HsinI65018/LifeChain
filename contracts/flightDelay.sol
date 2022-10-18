@@ -1,8 +1,7 @@
 pragma solidity ^0.8.17;
 import "./receive.sol";
-import "./send.sol";
 
-contract FlightDelay is Receive, Send{
+contract FlightDelay is Receive{
 
     struct Insurance {
         string airline;
@@ -76,6 +75,7 @@ contract FlightDelay is Receive, Send{
         insurances[_id].payment_status = _payment;
     }
 
+    // transfer ether from contract to account
     function _withdrawMoneyTo(address payable _to, uint _amount) internal {
         // _to.transfer(getBalance());
         (bool sent, bytes memory data) = _to.call{value: _amount}("");

@@ -1,6 +1,6 @@
 const createInstance = async () => {
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const contractAddress = "0x24F8e5A258717F40EFf54F2C1DACA94f83392Adc";
+    const contractAddress = "0xE7c50F6b35e353CaaaD67b43B5Cb280cc0405EC2";
     const response = await fetch('/api/read/file');
     const data = await response.json();
     const ABI = data.data

@@ -13,6 +13,14 @@
     },
     {
       "inputs": [],
+      "name": "initBalance",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function",
+      "payable": true
+    },
+    {
+      "inputs": [],
       "name": "getBalance",
       "outputs": [
         {
@@ -26,9 +34,9 @@
       "constant": true
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"getBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/receive.sol\":\"Receive\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/receive.sol\":{\"keccak256\":\"0x6d83166199b0ff0e72e94acb576b7fefbbabd55b963072703fe577a67091112c\",\"urls\":[\"bzz-raw://8d3da6711e33cc40f2001e8a0d2c50a1f6b7b65d8d6263f989626b873398b001\",\"dweb:/ipfs/QmVnweXWNx837XS6NF35kzQtSuN3ESiMFvmhur6F1SqgsN\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b5060bb8061001f6000396000f3fe608060405260043610601f5760003560e01c806312065fe0146027576025565b36602557005b005b348015603257600080fd5b506039604d565b60405160449190606c565b60405180910390f35b600047905090565b6000819050919050565b6066816055565b82525050565b6000602082019050607f6000830184605f565b9291505056fea2646970667358221220430a4224e360502183e90d31e5b7791f7dc26d32cc4d453081e131beb4431d0864736f6c63430008110033",
-  "deployedBytecode": "0x608060405260043610601f5760003560e01c806312065fe0146027576025565b36602557005b005b348015603257600080fd5b506039604d565b60405160449190606c565b60405180910390f35b600047905090565b6000819050919050565b6066816055565b82525050565b6000602082019050607f6000830184605f565b9291505056fea2646970667358221220430a4224e360502183e90d31e5b7791f7dc26d32cc4d453081e131beb4431d0864736f6c63430008110033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"getBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initBalance\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/receive.sol\":\"Receive\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/receive.sol\":{\"keccak256\":\"0xb391b8f39e57552e05e78cb5e5f8d9a0a5493b9140cdbdd7917bed4265fa5bde\",\"urls\":[\"bzz-raw://c20c174c94f76d36f56c1cb404e7a0cb517e0cbac8823e849588c77b18fc75dd\",\"dweb:/ipfs/QmW45nK3UiSthZ63Gz28pyNX9gmmcVTXXHN3uzhz8ey1YP\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060cf8061001f6000396000f3fe60806040526004361060295760003560e01c806312065fe0146031578063d59a2ad614605757602f565b36602f57005b005b348015603c57600080fd5b506043605f565b604051604e91906080565b60405180910390f35b605d6067565b005b600047905090565b565b6000819050919050565b607a816069565b82525050565b6000602082019050609360008301846073565b9291505056fea2646970667358221220f5543cdc18774d49fd66631b48c858b888da7c29689c32a2bb05993c66aacc2764736f6c63430008110033",
+  "deployedBytecode": "0x60806040526004361060295760003560e01c806312065fe0146031578063d59a2ad614605757602f565b36602f57005b005b348015603c57600080fd5b506043605f565b604051604e91906080565b60405180910390f35b605d6067565b005b600047905090565b565b6000819050919050565b607a816069565b82525050565b6000602082019050609360008301846073565b9291505056fea2646970667358221220f5543cdc18774d49fd66631b48c858b888da7c29689c32a2bb05993c66aacc2764736f6c63430008110033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [
@@ -259,22 +267,22 @@
       "name": "#utility.yul"
     }
   ],
-  "sourceMap": "26:189:1:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "26:189:1:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;119:94;;;;;;;;;;;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;162:4;185:21;178:28;;119:94;:::o;7:77:3:-;44:7;73:5;62:16;;7:77;;;:::o;90:118::-;177:24;195:5;177:24;:::i;:::-;172:3;165:37;90:118;;:::o;214:222::-;307:4;345:2;334:9;330:18;322:26;;358:71;426:1;415:9;411:17;402:6;358:71;:::i;:::-;214:222;;;;:::o",
-  "source": "pragma solidity ^0.8.17;\n\ncontract Receive {\n    receive() external payable {}\n    fallback() external payable {}\n\n    function getBalance() public view returns (uint) {\n        return address(this).balance;\n    }\n}",
+  "sourceMap": "26:235:1:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "26:235:1:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;165:94;;;;;;;;;;;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;119:40;;;:::i;:::-;;165:94;208:4;231:21;224:28;;165:94;:::o;119:40::-;:::o;7:77:3:-;44:7;73:5;62:16;;7:77;;;:::o;90:118::-;177:24;195:5;177:24;:::i;:::-;172:3;165:37;90:118;;:::o;214:222::-;307:4;345:2;334:9;330:18;322:26;;358:71;426:1;415:9;411:17;402:6;358:71;:::i;:::-;214:222;;;;:::o",
+  "source": "pragma solidity ^0.8.17;\n\ncontract Receive {\n    receive() external payable {}\n    fallback() external payable {}\n\n    function initBalance() public payable {}\n\n    function getBalance() public view returns (uint) {\n        return address(this).balance;\n    }\n}",
   "sourcePath": "/Users/changhsin-i/Downloads/碩士論文/LifeChain/contracts/receive.sol",
   "ast": {
     "absolutePath": "project:/contracts/receive.sol",
     "exportedSymbols": {
       "Receive": [
-        289
+        333
       ]
     },
-    "id": 290,
+    "id": 334,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 268,
+        "id": 308,
         "literals": [
           "solidity",
           "^",
@@ -291,9 +299,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 289,
+        "id": 333,
         "linearizedBaseContracts": [
-          289
+          333
         ],
         "name": "Receive",
         "nameLocation": "35:7:1",
@@ -301,12 +309,12 @@
         "nodes": [
           {
             "body": {
-              "id": 271,
+              "id": 311,
               "nodeType": "Block",
               "src": "76:2:1",
               "statements": []
             },
-            "id": 272,
+            "id": 312,
             "implemented": true,
             "kind": "receive",
             "modifiers": [],
@@ -314,18 +322,18 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 269,
+              "id": 309,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "56:2:1"
             },
             "returnParameters": {
-              "id": 270,
+              "id": 310,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "76:0:1"
             },
-            "scope": 289,
+            "scope": 333,
             "src": "49:29:1",
             "stateMutability": "payable",
             "virtual": false,
@@ -333,12 +341,12 @@
           },
           {
             "body": {
-              "id": 275,
+              "id": 315,
               "nodeType": "Block",
               "src": "111:2:1",
               "statements": []
             },
-            "id": 276,
+            "id": 316,
             "implemented": true,
             "kind": "fallback",
             "modifiers": [],
@@ -346,18 +354,18 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 273,
+              "id": 313,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "91:2:1"
             },
             "returnParameters": {
-              "id": 274,
+              "id": 314,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "111:0:1"
             },
-            "scope": 289,
+            "scope": 333,
             "src": "83:30:1",
             "stateMutability": "payable",
             "virtual": false,
@@ -365,23 +373,56 @@
           },
           {
             "body": {
-              "id": 287,
+              "id": 319,
               "nodeType": "Block",
-              "src": "168:45:1",
+              "src": "157:2:1",
+              "statements": []
+            },
+            "functionSelector": "d59a2ad6",
+            "id": 320,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "initBalance",
+            "nameLocation": "128:11:1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 317,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "139:2:1"
+            },
+            "returnParameters": {
+              "id": 318,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "157:0:1"
+            },
+            "scope": 333,
+            "src": "119:40:1",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 331,
+              "nodeType": "Block",
+              "src": "214:45:1",
               "statements": [
                 {
                   "expression": {
                     "expression": {
                       "arguments": [
                         {
-                          "id": 283,
+                          "id": 327,
                           "name": "this",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 4294967268,
-                          "src": "193:4:1",
+                          "src": "239:4:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_contract$_Receive_$289",
+                            "typeIdentifier": "t_contract$_Receive_$333",
                             "typeString": "contract Receive"
                           }
                         }
@@ -389,30 +430,30 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_contract$_Receive_$289",
+                            "typeIdentifier": "t_contract$_Receive_$333",
                             "typeString": "contract Receive"
                           }
                         ],
-                        "id": 282,
+                        "id": 326,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "lValueRequested": false,
                         "nodeType": "ElementaryTypeNameExpression",
-                        "src": "185:7:1",
+                        "src": "231:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_type$_t_address_$",
                           "typeString": "type(address)"
                         },
                         "typeName": {
-                          "id": 281,
+                          "id": 325,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "185:7:1",
+                          "src": "231:7:1",
                           "typeDescriptions": {}
                         }
                       },
-                      "id": 284,
+                      "id": 328,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -421,61 +462,61 @@
                       "nameLocations": [],
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "185:13:1",
+                      "src": "231:13:1",
                       "tryCall": false,
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 285,
+                    "id": 329,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
-                    "memberLocation": "199:7:1",
+                    "memberLocation": "245:7:1",
                     "memberName": "balance",
                     "nodeType": "MemberAccess",
-                    "src": "185:21:1",
+                    "src": "231:21:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 280,
-                  "id": 286,
+                  "functionReturnParameters": 324,
+                  "id": 330,
                   "nodeType": "Return",
-                  "src": "178:28:1"
+                  "src": "224:28:1"
                 }
               ]
             },
             "functionSelector": "12065fe0",
-            "id": 288,
+            "id": 332,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getBalance",
-            "nameLocation": "128:10:1",
+            "nameLocation": "174:10:1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 277,
+              "id": 321,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "138:2:1"
+              "src": "184:2:1"
             },
             "returnParameters": {
-              "id": 280,
+              "id": 324,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 279,
+                  "id": 323,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 288,
-                  "src": "162:4:1",
+                  "scope": 332,
+                  "src": "208:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -483,10 +524,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 278,
+                    "id": 322,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "162:4:1",
+                    "src": "208:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -495,21 +536,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "161:6:1"
+              "src": "207:6:1"
             },
-            "scope": 289,
-            "src": "119:94:1",
+            "scope": 333,
+            "src": "165:94:1",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 290,
-        "src": "26:189:1",
+        "scope": 334,
+        "src": "26:235:1",
         "usedErrors": []
       }
     ],
-    "src": "0:215:1"
+    "src": "0:261:1"
   },
   "compiler": {
     "name": "solc",
@@ -519,12 +560,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x3ea1c0c029799eA6c72B783CF5bE3C72D622D758",
-      "transactionHash": "0x9709bf2de72ec12d1302473af9ee34a400bd0ee6b5e965a7ad1b87c93a17336c"
+      "address": "0x0194CeC916840769C3BD2b771c3A88c67f7AAB77",
+      "transactionHash": "0x5e667931d098d3ecadbbc9e0ab02489e6d4cb2acf938abfca276c5e62206c6b3"
     }
   },
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-10-16T14:01:52.007Z",
+  "updatedAt": "2022-10-18T11:18:20.195Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

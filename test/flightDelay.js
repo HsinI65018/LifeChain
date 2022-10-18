@@ -8,7 +8,7 @@ contract(flightDelay, async (accounts) => {
         flightInstance = await flightDelay.new();
     });
 
-    xit("it shoule create a new insurance data", async () => {
+    it("it shoule create a new insurance data", async () => {
         const firstUser = accounts[0];
 
         await flightInstance.createInsurance(firstUser, "CI", "113", "20201001");
@@ -19,7 +19,7 @@ contract(flightDelay, async (accounts) => {
         expect(insuranceIds).to.have.lengthOf(2);
     })
 
-    xit("it should get insurance data by user id", async () => {
+    it("it should get insurance data by user id", async () => {
         const firstUser = accounts[0];
         const airlineData = ["CI", "AI"];
 
@@ -34,7 +34,7 @@ contract(flightDelay, async (accounts) => {
         }
     })
 
-    xit("it should return owner array", async () => {
+    it("it should return owner array", async () => {
         const firstUser = accounts[0];
         const secondUser = accounts[1];
 
@@ -47,19 +47,15 @@ contract(flightDelay, async (accounts) => {
         expect(owners[1]).to.equal(secondUser);
     })
 
-    xit("it should update the insurance data", async () => {
+    it("it should update the insurance data", async () => {
         await flightInstance.createInsurance(accounts[0], "CI", "113", "20201001");
-        const [status, payment] = ["daley", "2000"];
+        const [status, payment, amount] = ["daley", "1", 1];
 
-        await flightInstance.updateInsurance(0, status, payment);
+        await flightInstance.updateInsurance(0, status, payment, 1);
 
         const insuranceData = await flightInstance.getInsurance(0);
 
         expect(insuranceData[3]).to.equal(status);
         expect(insuranceData[4]).to.equal(payment);
-    })
-
-    it("it should transfer money", async () => {
-
     })
 })

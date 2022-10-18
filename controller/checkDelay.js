@@ -1,6 +1,6 @@
 const Web3 = require("web3");
 const ABI = require("../build/contracts/FlightDelay.json").abi;
-const contractAddress = "0x24F8e5A258717F40EFf54F2C1DACA94f83392Adc";
+const contractAddress = "0xE7c50F6b35e353CaaaD67b43B5Cb280cc0405EC2";
 
 let web3;
 let contract;
@@ -17,12 +17,6 @@ const createInstance = async () => {
     })
     const token = await tokenResponse.json();
 
-    // await contract.methods.withdrawMoneyTo("0x8bb4d12ff50aE37620751A38F166DE751062f4aA", web3.utils.toHex(web3.utils.toWei(('1').toString(), 'ether'))).send({
-    //     from: contractOwner,
-    //     to: contractAddress,
-    //     value: 0,
-    // })
-    
     const owners = await contract.methods.getOwners().call();
     const ownerIds = [];
     for(let i = 0; i < owners.length; i ++) {
@@ -108,14 +102,11 @@ const updateInsuranceData = async (id, status, payment, amount) => {
     });
 }
 
-createInstance();
 
-
-//// IDEA
-//// 1. call contract to get all owner address (create a contract function to get all address)
-//// 2. loop through address and get their insurance order (use getInsuranceIds and getInsurance)
-//// 3. check if the insurance order flight is delay or not (match with TDX API)
-//// 4. use setInterval combine above logic
+// start checking
+setInterval(() => {
+    createInstance()
+}, 1000);
 
 
 module.exports = createInstance;
