@@ -52,6 +52,21 @@ const searchController = async () => {
 searchBtn.addEventListener('click', searchController);
 
 
+// mouseover the icon, show icon name
+const searchBtnName = document.querySelector('.search-icon-title');
+const showButtomName = async () => {
+    searchBtnName.style.display = 'block';
+}
+searchBtn.addEventListener('mouseover', showButtomName);
+
+
+// mouseout the icon, remove icon name
+const hideButtomName = async () => {
+    searchBtnName.style.display = 'none';
+}
+searchBtn.addEventListener('mouseout', hideButtomName);
+
+
 // close error message
 const errorContainer = document.querySelector('.error-container');
 const errorBtn = document.querySelector('.error-btn');
