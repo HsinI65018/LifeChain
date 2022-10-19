@@ -29,7 +29,7 @@ main{
 /* banner-info */
 .banner-info{
     width: 600px;
-    height: calc(100vh - 54px - 200px);
+    height: calc(100vh - 54px - 160px);
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@ main{
     font-weight: 700;
     color: #000000;
     font-size: 40px;
-    margin-top: 90px;
+    margin-top: 70px;
 }
 .banner-info > .banner-info-subtitle{
     width: 400px;
