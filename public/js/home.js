@@ -42,7 +42,7 @@ const orderInsuranceController = async (e) => {
     if(checkFlightResult){
         const transcation = await contract.methods.createInsurance(userAccount, airline.value.toUpperCase(), flightNumber.value, departureDate.value).send({
             from: userAccount,
-            to: "0xE7c50F6b35e353CaaaD67b43B5Cb280cc0405EC2",
+            to: "0x252492BCf62d34B871599F10C7c0CbB56b37b4EB",
             value: web3.utils.toHex(web3.utils.toWei(('0.05').toString(), 'ether'))
         });
         
@@ -75,16 +75,30 @@ async function checkFlightNumber(departureDate, airline, number) {
     });
     const flightData = await response.json();
     // console.log(flightData)
-
+    
     const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     for(let i = flightData.length - 1; i >= 0; i --) {
         const startDate = flightData[i].ScheduleStartDate;
         const endDate = flightData[i].ScheduleEndDate;
+
         if(departureDate >= startDate && departureDate <= endDate) {
-            console.log(i, flightData[i])
-            const date = new Date(departureDate)
+            // make sure insurance order time is two hours before departure time
+            const current = new Date();
+            let currentHours = (current.getHours()+2).toString();
+            let currentMins = current.getMinutes().toString();
+            if(currentHours.length !== 2) {
+                currentHours = "0" + currentHours;
+            }
+            if(currentMins.length !== 2) {
+                currentMins = "0" + currentMins;
+            }
+            const currentTime = currentHours + ":" + currentMins;
+            if(currentTime > flightData[i].DepartureTime) {
+                return false
+            }
+
+            const date = new Date(departureDate);
             const day = date.getDay();
-            // console.log(weekdays[day])
             const flightStatus = flightData[i][`${weekdays[day]}`];
             return flightStatus
         }

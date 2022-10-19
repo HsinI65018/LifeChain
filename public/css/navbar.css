@@ -48,6 +48,21 @@ nav{
     width: 30px;
     height: 30px;
 }
+.navbar-search-icon > div{
+    position: absolute;
+    top: 45px;
+    right: 95px;
+    width: 70px;
+    height: 30px;
+    font-size: 12px;
+    background-color: #888888;
+    color: #FFFFFF;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: 700;
+    display: none;
+}
 .navbar-logo > a > img{
     width: 30px;
     height: 30px;

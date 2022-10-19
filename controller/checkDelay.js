@@ -1,6 +1,6 @@
 const Web3 = require("web3");
 const ABI = require("../build/contracts/FlightDelay.json").abi;
-const contractAddress = "0xE7c50F6b35e353CaaaD67b43B5Cb280cc0405EC2";
+const contractAddress = "0x252492BCf62d34B871599F10C7c0CbB56b37b4EB";
 
 let web3;
 let contract;
@@ -78,8 +78,7 @@ const calculateDelayTime = async (delayData, ScheduleTime, ActualTime) => {
 
 // update insurance data depends on different delay time
 const checkDelayTime = async (delayTime, id) => {
-    // if(delayTime >= 60 && delayTime <= 120)
-    if(delayTime >= 30 && delayTime <= 60) {
+    if(delayTime >= 60 && delayTime <= 120) {
         await updateInsuranceData(id, "Delay", "0.050 eth", 0.050);
     } else if(delayTime >= 120 && delayTime <= 180) {
         await updateInsuranceData(id,"Delay", "0.056 eth", 0.056);
@@ -106,7 +105,7 @@ const updateInsuranceData = async (id, status, payment, amount) => {
 // start checking
 setInterval(() => {
     createInstance()
-}, 1000);
+}, 1000 * 60 * 60);
 
 
 module.exports = createInstance;
