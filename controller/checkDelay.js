@@ -1,6 +1,6 @@
 const Web3 = require("web3");
 const ABI = require("../build/contracts/FlightDelay.json").abi;
-const contractAddress = "0x252492BCf62d34B871599F10C7c0CbB56b37b4EB";
+const contractAddress = "0x94F85C6c3e7981Ee5Adc3918cF09B84Fc9568eDc";
 
 let web3;
 let contract;
@@ -43,6 +43,11 @@ const createInstance = async () => {
             const delayData = await response.json();
             // console.log(delayData)
 
+            // if flight cancle
+            if(delayData[0].DepartureRemark == '取消') {
+                await updateInsuranceData(ownerIds[i], "Cancle", "0.070 eth", 0.070);
+            }
+            // if flight delay
             if(delayData[0].ScheduleDepartureTime && delayData[0].ActualDepartureTime) {
                 const delayTime = await calculateDelayTime(delayData[0], 'ScheduleDepartureTime', 'ActualDepartureTime');
                 checkDelayTime(delayTime, ownerIds[i]);

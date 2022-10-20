@@ -16,9 +16,6 @@ const initContractInstance = async () => {
     web3 = (await createInstance()).web3;
     contract = (await createInstance()).contract;
     userAccount = (await createInstance()).userAccount;
-
-    const balance = await contract.methods.getBalance().call();
-    console.log(balance)
 }
 window.addEventListener('load', initContractInstance);
 
@@ -42,7 +39,7 @@ const orderInsuranceController = async (e) => {
     if(checkFlightResult){
         const transcation = await contract.methods.createInsurance(userAccount, airline.value.toUpperCase(), flightNumber.value, departureDate.value).send({
             from: userAccount,
-            to: "0x252492BCf62d34B871599F10C7c0CbB56b37b4EB",
+            to: "0x94F85C6c3e7981Ee5Adc3918cF09B84Fc9568eDc",
             value: web3.utils.toHex(web3.utils.toWei(('0.05').toString(), 'ether'))
         });
         
