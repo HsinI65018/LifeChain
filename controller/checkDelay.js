@@ -1,6 +1,6 @@
 const Web3 = require("web3");
 const ABI = require("../build/contracts/FlightDelay.json").abi;
-const contractAddress = "0x94F85C6c3e7981Ee5Adc3918cF09B84Fc9568eDc";
+const contractAddress = "0x27D93A5E2F32914ed6D790A5d4A7F3b8f9D73CC5";
 
 let web3;
 let contract;
@@ -42,10 +42,10 @@ const createInstance = async () => {
             })
             const delayData = await response.json();
             // console.log(delayData)
-
+            
             // if flight cancle
             if(delayData[0].DepartureRemark == '取消') {
-                await updateInsuranceData(ownerIds[i], "Cancle", "0.070 eth", 0.070);
+                await updateInsuranceData(ownerIds[i], "Cancel", "0.070 eth", 0.070);
             }
             // if flight delay
             if(delayData[0].ScheduleDepartureTime && delayData[0].ActualDepartureTime) {
@@ -61,7 +61,6 @@ const createInstance = async () => {
 
 // calculate delay time
 const calculateDelayTime = async (delayData, ScheduleTime, ActualTime) => {
-
     const scheduleTime = delayData[ScheduleTime].split("T")[1];
     const actualTime = delayData[ActualTime].split("T")[1];
     const [ scheduleHours, scheduleSecs ] = scheduleTime.split(':');
@@ -83,11 +82,11 @@ const calculateDelayTime = async (delayData, ScheduleTime, ActualTime) => {
 
 // update insurance data depends on different delay time
 const checkDelayTime = async (delayTime, id) => {
-    if(delayTime >= 60 && delayTime <= 120) {
+    if(delayTime >= 60 && delayTime < 120) {
         await updateInsuranceData(id, "Delay", "0.050 eth", 0.050);
-    } else if(delayTime >= 120 && delayTime <= 180) {
+    } else if(delayTime >= 120 && delayTime < 180) {
         await updateInsuranceData(id,"Delay", "0.056 eth", 0.056);
-    } else if(delayTime >= 180 && delayTime <= 240) {
+    } else if(delayTime >= 180 && delayTime < 240) {
         await updateInsuranceData(id,"Delay", "0.060 eth", 0.060);
     } else if(delayTime >= 240) {
         await updateInsuranceData(id,"Delay", "0.064 eth", 0.064);

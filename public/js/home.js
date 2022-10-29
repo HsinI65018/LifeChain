@@ -39,7 +39,7 @@ const orderInsuranceController = async (e) => {
     if(checkFlightResult){
         const transcation = await contract.methods.createInsurance(userAccount, airline.value.toUpperCase(), flightNumber.value, departureDate.value).send({
             from: userAccount,
-            to: "0x94F85C6c3e7981Ee5Adc3918cF09B84Fc9568eDc",
+            to: "0x27D93A5E2F32914ed6D790A5d4A7F3b8f9D73CC5",
             value: web3.utils.toHex(web3.utils.toWei(('0.05').toString(), 'ether'))
         });
         
@@ -57,6 +57,7 @@ form.addEventListener('submit', orderInsuranceController);
 
 
 // check if the flight is exist
+const errorMsg = document.querySelector('.error-message');
 async function checkFlightNumber(departureDate, airline, number) {   
     const flightNumber = "'" + airline + number + "'";
     const tokenResponse = await fetch('/api/flight/token', {
@@ -71,7 +72,6 @@ async function checkFlightNumber(departureDate, airline, number) {
         }
     });
     const flightData = await response.json();
-    // console.log(flightData)
     
     const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     for(let i = flightData.length - 1; i >= 0; i --) {
@@ -91,6 +91,9 @@ async function checkFlightNumber(departureDate, airline, number) {
             }
             const currentTime = currentHours + ":" + currentMins;
             if(currentTime > flightData[i].DepartureTime) {
+                errorContainer.style.display = 'flex';
+                errorContainer.classList.add('show-animation');
+                errorMsg.textContent = "Oops! You have passed the final time for buying flight insurance.";
                 return false
             }
 
